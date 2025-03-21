@@ -11,8 +11,9 @@ def tap(x, y):
     if not inside(ball):
         ball.x = -199
         ball.y = -199
-        speed.x = (x + 200) / 25
-        speed.y = (y + 200) / 25
+        # Increase projectile speed by multiplying by a larger factor
+        speed.x = (x + 200) / 15  # Changed from 25 to 15 (faster)
+        speed.y = (y + 200) / 15  # Changed from 25 to 15 (faster)
 
 def inside(xy):
     "Return True if xy within screen."
@@ -40,7 +41,8 @@ def move():
         targets.append(target)
 
     for target in targets:
-        target.x -= 0.5
+        # Increase target speed by using a larger value
+        target.x -= 1.2  # Changed from 0.5 to 1.2 (faster)
 
     if inside(ball):
         speed.y -= 0.35
@@ -59,7 +61,8 @@ def move():
         if not inside(target):
             return
 
-    ontimer(move, 50)
+    # Decrease the timer value to make the game loop run faster
+    ontimer(move, 30)  # Changed from 50 to 30 (faster game loop)
 
 setup(420, 420, 370, 0)
 hideturtle()
