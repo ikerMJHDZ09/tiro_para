@@ -1,6 +1,8 @@
-from random import randrange
+from random import randrange, choice  
 from turtle import *
 from freegames import vector
+s
+target_colors = ['blue', 'green', 'purple']
 
 ball = vector(-200, -200)
 speed = vector(0, 0)
@@ -11,20 +13,21 @@ def tap(x, y):
     if not inside(ball):
         ball.x = -199
         ball.y = -199
-        speed.x = (x + 200) / 15
-        speed.y = (y + 200) / 15
+        speed.x = (x + 200) / 15  # Cambiado de 25 a 15 (más rápido)
+        speed.y = (y + 200) / 15  # Cambiado de 25 a 15 (más rápido)
 
 def inside(xy):
-    "Return True if xy within screen."
+    "Retorna True si xy está dentro de la pantalla."
     return -200 < xy.x < 200 and -200 < xy.y < 200
 
 def draw():
-    "Draw ball and targets."
+    "Dibuja la bola y los objetivos."
     clear()
 
     for target in targets:
+        color = choice(target_colors)  
         goto(target.x, target.y)
-        dot(20, 'blue')
+        dot(20, color)
 
     if inside(ball):
         goto(ball.x, ball.y)
@@ -33,14 +36,14 @@ def draw():
     update()
 
 def move():
-    "Move ball and targets."
+    "Mueve la bola y los objetivos."
     if randrange(40) == 0:
         y = randrange(-150, 150)
         target = vector(200, y)
         targets.append(target)
 
     for target in targets:
-        target.x -= 1.2 
+        target.x -= 1.2  # Cambiado de 0.5 a 1.2 (más rápido)
 
     if inside(ball):
         speed.y -= 0.35
@@ -57,8 +60,10 @@ def move():
 
     for target in targets:
         if not inside(target):
-            target.x = 200
-    ontimer(move, 30)  
+            return
+
+   
+    ontimer(move, 30) 
 
 setup(420, 420, 370, 0)
 hideturtle()
